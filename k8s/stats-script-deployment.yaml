@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: stats-script
-        image: fineken/stats-script:latest
+        image: stats-script:latest
