@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stats-script-deployment2
+  name: script-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: stats-script2
+      app: script
   template:
     metadata:
       labels:
-        app: stats-script2
+        app: script
     spec:
       containers:
-      - name: stats-script2
-        image: fineken/stats-script:latest
+      - name: script
+        image: script:latest

@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app-deployment2
+  name: web-app-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web-app2
+      app: web-app
   template:
     metadata:
       labels:
-        app: web-app2
+        app: web-app
+        version: "v1"  
     spec:
       containers:
-      - name: web-app2
-        image: fineken/web-app:latest
+      - name: web-app
+        image: web-app:latest
         ports:
         - containerPort: 5000
