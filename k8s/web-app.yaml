@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-app-deployment
+  name: web-app
 spec:
   replicas: 1
   selector:
@@ -11,21 +11,10 @@ spec:
     metadata:
       labels:
         app: web-app
+        version: "v1"  
     spec:
       containers:
       - name: web-app
-        image: web-app:latest
+        image: fineken/web-app:latest
         ports:
         - containerPort: 5000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: web-app-service
-spec:
-  selector:
-    app: web-app
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 5000

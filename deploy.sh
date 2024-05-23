@@ -1,22 +1,12 @@
 #!/bin/bash
 
+docker build -t fineken/web-app:latest -f web-app/dockerfile web-app/
+docker push fineken/web-app:latest
+kubectl apply -f k8s/web-app.yaml
 
-DOCKER_USERNAME=fineken
 
-echo "Building Docker images..."
-docker build -t $DOCKER_USERNAME/web-app:latest -f web-app/Dockerfile web-app/
-docker build -t $DOCKER_USERNAME/stats-script:latest -f stats-script/Dockerfile stats-script/
+docker build -t fineken/stats:latest -f stats-script/dockerfile stats-script/
+docker push fineken/stats:latest
+kubectl apply -f k8s/script.yaml
 
-echo "Pushing Docker images to Docker Hub..."
-docker push $DOCKER_USERNAME/web-app:latest
-docker push $DOCKER_USERNAME/stats-script:latest
-
-echo "Applying Kubernetes manifests..."
-kubectl apply -f web-app-deployment.yaml
-kubectl apply -f stats-script-deployment.yaml
-
-echo "Checking pod status..."
-kubectl get pods
-
-echo "Getting service URL..."
-minikube service web-app-service --url
+kubectl apply -f k8s/service.yaml
